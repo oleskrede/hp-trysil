@@ -2,8 +2,14 @@
 
 <h1>Registrering av poeng</h1>
 
-<div>
-
-</div>
+<form action="points" method="post">
+    <label for="house">Hus (TODO: Velge hus fra meny/dropdown for å unngå skrivefeil):</label>
+    <input type="text" name="house" />
+    <label for="points">Poeng:</label>
+    <input type="number" name="points" />
+    <label for="reason">Begrunnelse:</label>
+    <input type="text" name="reason" />
+    <button type="submit">Lagre</button>
+</form>
 
 {{> footer}}
