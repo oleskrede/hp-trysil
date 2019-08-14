@@ -33,6 +33,16 @@ class HtmlController (private val houseRepository: HouseRepository,
         return "house"
     }
 
+    @GetMapping("/house/{name}/points")
+    fun points(@PathVariable name: String, model: Model): String {
+        val house = houseRepository.findByName(name)
+                ?: throw IllegalArgumentException("Wrong house name provided")
+        val points = pointsRepository.findAllByHouseOrderByAddedAtAsc(house)
+        model["title"] = house.name
+        model["points"] = points
+        return "points"
+    }
+
     fun House.render(points: Int) = RenderedHouse(
             name,
             points
