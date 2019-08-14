@@ -2,4 +2,18 @@
 
 <h1>{{title}}</h1>
 
+<div class="houses">
+
+    {{#houses}}
+        <section>
+            <header class="house-header">
+                <h2 class="house-title">
+                    <a href="/house/{{name}}">{{name}}</a>
+                </h2>
+            </header>
+        </section>
+    {{/houses}}
+
+</div>
+
 {{> footer}}

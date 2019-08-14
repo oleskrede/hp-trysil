@@ -9,5 +9,4 @@ class HpTrysilApplicationTests {
 	@Test
 	fun contextLoads() {
 	}
-
 }
