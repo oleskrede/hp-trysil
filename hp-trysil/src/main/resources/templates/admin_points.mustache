@@ -2,14 +2,28 @@
 
 <h1>Registrering av poeng</h1>
 
+{{#saveResult}}
+    <p><b>{{saveResult.house}}</b>
+        har nå fått <b>{{saveResult.points}} poeng</b>
+        for '{{saveResult.reason}}'</p>
+{{/saveResult}}
+
 <form action="points" method="post">
-    <label for="house">Hus (TODO: Velge hus fra meny/dropdown for å unngå skrivefeil):</label>
-    <input type="text" name="house" />
-    <label for="points">Poeng:</label>
-    <input type="number" name="points" />
-    <label for="reason">Begrunnelse:</label>
-    <input type="text" name="reason" />
-    <button type="submit">Lagre</button>
+    <fieldset>
+
+        {{#houses}}
+            <label><input type="radio" name="houseField" id="{{.}}" value="{{.}}"> {{.}}</label>
+        {{/houses}}
+
+        <label for="pointsField">Poeng:</label>
+        <input type="number" name="pointsField">
+
+        <label for="reasonField">Begrunnelse:</label>
+        <input type="text" name="reasonField" >
+
+        <button type="submit">Lagre</button>
+
+    </fieldset>
 </form>
 
 {{> footer}}
