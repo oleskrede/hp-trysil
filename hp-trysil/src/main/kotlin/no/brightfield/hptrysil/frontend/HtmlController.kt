@@ -17,7 +17,11 @@ class HtmlController (private val houseRepository: HouseRepository,
     @GetMapping("/")
     fun frontpage(model: Model): String {
         model["title"] = "Harry Potter partay"
-        model["houses"] = houseRepository.findAllByOrderByNameAsc().map { it.render(72) }
+        val houses = houseRepository.findAllByOrderByNameAsc().toList()
+        val housesAndPoints = houses
+                .map { Pair(it, pointsRepository.findAllByHouseOrderByAddedAtAsc(it)
+                        .sumBy { point -> point.value }) }
+        model["houseRows"] = createHouseRows(housesAndPoints)
         return "frontpage"
     }
 
@@ -28,7 +32,9 @@ class HtmlController (private val houseRepository: HouseRepository,
         val points = pointsRepository.findAllByHouseOrderByAddedAtAsc(house)
                 .sumBy { it.value }
         val renderedHouse = house?.render(points)
-        model["title"] = house.name
+        val pointList = pointsRepository.findAllByHouseOrderByAddedAtAsc(house)
+        model["title"] = "Magic in the Woods - " + house.name + " homeroom"
+        model["pointList"] = pointList
         model["house"] = renderedHouse
         return "house"
     }
@@ -41,6 +47,14 @@ class HtmlController (private val houseRepository: HouseRepository,
         model["title"] = house.name
         model["points"] = points
         return "points"
+    }
+
+    fun createHouseRows(houses: List<Pair<House, Int>>) : List<HouseRow> {
+        return houses.chunked(2).map { HouseRow(it) }
+    }
+
+    class HouseRow(val h: List<Pair<House, Int>>) {
+        val houses = h.map { RenderedHouse(it.first.name, it.second) }
     }
 
     fun House.render(points: Int) = RenderedHouse(

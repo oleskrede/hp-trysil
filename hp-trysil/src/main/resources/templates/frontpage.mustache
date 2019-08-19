@@ -1,29 +1,66 @@
 {{> header}}
 
-<h1>{{title}}</h1>
+<nav class=" indigo darken-4" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><img height="50" src="/images/harry-potter-logo-transparent-background-10.png"></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="#">Navbar Link</a></li>
+        </ul>
 
-<div class="houses">
+        <ul id="nav-mobile" class="sidenav">
+            <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
 
-    {{#houses}}
-        <section>
-            <header class="house-header">
-                <h2 class="house-title">
-                    <a href="/house/{{name}}">{{name}}</a>
-                </h2>
-            </header>
-        </section>
-    {{/houses}}
-
+<div class="section">
+    <div class="row">
+        <div class="col s3 center-align">
+            <img height="50" src="/images/rankingIcon.png">
+        </div>
+        <div class="col s9">
+            <h5>House Standings</h5>
+        </div>
+    </div>
+    {{#houseRows}}
+        <div class="row">
+            {{#houses}}
+                <div class="col s6 center-align">
+                    <a href="/house/{{name}}" >
+                        <img class="responsive-img pulse" src="/images/icon_{{name}}.png">
+                        <p> {{points}} points </p>
+                    </a>
+                </div>
+            {{/houses}}
+        </div>
+    {{/houseRows}}
 </div>
-
-<p>Knapp for å illustrere bruk av JavaScript</p>
-
-<button onclick="myFunction()">Try it</button>
-
-<script>
-function myFunction() {
-  alert("Hello! I am an alert box!");
-}
-</script>
+<div class="divider"></div>
+<div class="section">
+    <div class="row">
+        <div class="col s3 center-align">
+            <img height="50" src="/images/newsIcon.png">
+        </div>
+        <div class="col s9">
+            <h5>Upcoming events</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-image">
+                    <img src="/images/Quidditch_Pitch.jpg">
+                    <span class="card-title">Lørdag 14:00 - Rumpeldunk</span>
+                </div>
+                <div class="card-content">
+                    <p>Rumpeldunk er den mest populære sporten i magiverdenen. Spill for huset ditt og vinn Rumpeldunk Cupen!</p>
+                </div>
+                <div class="card-action">
+                    <a href="#">Les Mer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {{> footer}}
