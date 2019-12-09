@@ -17,7 +17,7 @@ class IntegrationTests (@Autowired val restTemplate: TestRestTemplate) {
     fun `Assert frontpage is returned OK`() {
         val entity = restTemplate.getForEntity<String>("/")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(entity.body).contains("<h1>Harry Potter partay</h1>")
+        assertThat(entity.body).contains("<title>Harry Potter partay</title>")
     }
 
 }
