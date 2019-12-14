@@ -1,31 +1,74 @@
 {{> header}}
 
-<h1>Registrering av poeng</h1>
 
-<div class="dumbledor">
-{{#saveResult}}
-    <p><b>{{saveResult.house}}</b>
-        har nå fått <b>{{saveResult.points}} poeng</b>
-        for '{{saveResult.reason}}'</p>
-{{/saveResult}}
+<div class="section">
 
-<form action="points" method="post">
-    <fieldset>
+    <h1>Registrering av poeng</h1>
 
-        {{#houses}}
-            <label><input type="radio" name="houseField" id="{{.}}" value="{{.}}"> {{.}}</label>
-        {{/houses}}
+    {{#saveResult}}
+        <p><b>{{saveResult.points}} points</b> to <b>{{saveResult.player}}</b> from <b>{{saveResult.house}}</b>, for '{{saveResult.reason}}'.</p>
+    {{/saveResult}}
 
-        <label for="pointsField">Poeng:</label>
-        <input type="number" name="pointsField">
 
-        <label for="reasonField">Begrunnelse:</label>
-        <input type="text" name="reasonField" >
+    <div class="row">
+        <form class="col s12" action="points" method="post">
+            <div class="row">
+                <p>House</p>
+                {{#houses}}
+                    <p>
+                        <label>
+                            <input name="houseField" type="radio" id="{{.}}" value="{{.}}" onclick="showHousePlayers({{.}})"/>
+                            <span>{{.}}</span>
+                        </label>
+                    </p>
+                {{/houses}}
+            </div>
 
-        <button type="submit">Lagre</button>
+            <div class="row">
+                <p>Wizard</p>
+                {{#wizards}}
+                    <p>
+                        <label class="{{house}} player" style="display:none">
+                            <input name="playerField" type="radio" id="{{.}}" value="{{.}}"/>
+                            <span>{{.}}</span>
+                        </label>
+                    </p>
+                {{/wizards}}
+            </div>
 
-    </fieldset>
-</form>
+            <!-- Points and reason -->
+            <div class="row">
+                <div class="input-field col s4">
+                    <input placeholder="Points" id="pointsField" name="pointsField" type="number" class="validate">
+                    <label for="pointsField">Points</label>
+                </div>
+                <div class="input-field col s8">
+                    <input id="reasonField" name="reasonField" type="text" class="validate">
+                    <label for="reasonField">Reason</label>
+                </div>
+            </div>
+
+            <button type="submit">Lagre</button>
+        </form>
+    </div>
+
 </div>
+
+
+<script>
+function showHousePlayers(house) {
+    // hide all players
+    var divsToHide = document.getElementsByClassName("player");
+    for(var i = 0; i < divsToHide.length; i++){
+        divsToHide[i].style.display = "none";
+    }
+
+    // show players belonging to chosen house
+    var divsToShow = document.getElementsByClassName(house.value);
+    for(var i = 0; i < divsToShow.length; i++){
+        divsToShow[i].style.display = "inline";
+    }
+}
+</script>
 
 {{> footer}}

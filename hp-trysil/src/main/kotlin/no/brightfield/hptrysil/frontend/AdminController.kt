@@ -2,6 +2,7 @@ package no.brightfield.hptrysil.frontend
 
 import no.brightfield.hptrysil.entity.Points
 import no.brightfield.hptrysil.repository.HouseRepository
+import no.brightfield.hptrysil.repository.PlayerRepository
 import no.brightfield.hptrysil.repository.PointsRepository
 import no.brightfield.hptrysil.util.ALL_HOUSES
 import org.springframework.stereotype.Controller
@@ -11,18 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import java.lang.IllegalArgumentException
 
 @Controller
 @RequestMapping("/admin")
 class AdminController (private val houseRepository: HouseRepository,
-                       private val pointsRepository: PointsRepository) {
+                       private val pointsRepository: PointsRepository,
+                       private val playerRepository: PlayerRepository) {
 
     @GetMapping("/points")
     fun pointsForm(model: Model): String {
-        model["activeAdmin"] = ""
-        model["title"] = "Poengregistrering"
-        model["houses"] = ALL_HOUSES
+        initAdminPointsModel(model)
         return "admin_points"
     }
 
@@ -37,17 +36,28 @@ class AdminController (private val houseRepository: HouseRepository,
                 ?: throw IllegalArgumentException("No reason provided")
         val house = houseRepository.findByName(houseName)
                 ?: throw IllegalArgumentException("Wrong house name provided")
+        val playerName = params["playerField"]
+                ?: throw IllegalArgumentException("No player name provided")
+        val player = playerRepository.findByName(playerName)
+                ?: throw IllegalArgumentException("Wrong player name provided")
 
-        pointsRepository.save(Points(points, house, reason))
+        pointsRepository.save(Points(points, house, reason, player))
 
+        initAdminPointsModel(model)
+        model["saveResult"] = RenderedSaveResult(houseName, playerName, points, reason)
+        return "admin_points"
+    }
+
+    private fun initAdminPointsModel(model: Model) {
+        model["activeAdmin"] = ""
         model["title"] = "Poengregistrering"
         model["houses"] = ALL_HOUSES
-        model["saveResult"] = RenderedSaveResult(houseName, points, reason)
-        return "admin_points"
+        model["wizards"] = playerRepository.findAll()
     }
 
     data class RenderedSaveResult(
             val house: String,
+            val player: String,
             val points: Int,
             val reason: String
     )

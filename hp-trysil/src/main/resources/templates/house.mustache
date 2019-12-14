@@ -27,6 +27,7 @@
                 <tr>
                     <th>Points</th>
                     <th>Reason</th>
+                    <th>Wizard</th>
                 </tr>
               </thead>
 
@@ -35,6 +36,7 @@
                       <tr>
                           <td>{{value}} points</td>
                           <td>{{reason}}</td>
+                          <td>{{player}}</td>
                       </tr>
                   {{/pointList}}
               </tbody>
@@ -55,36 +57,23 @@
       </div>
     </div>
     <div class="row">
+        {{#wizards}}
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card-panel grey lighten-5 z-depth-1">
           <div class="row valign-wrapper">
             <div class="col s3">
-              <img src="/images/alexProfilePic.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+              <img src="/images/players/{{name}}.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
             </div>
             <div class="col s9">
-              <h6>Alexander Fosseidbråten</h6>
+              <h6>{{name}}</h6>
               <p>
-                This is a square image. Add the "circle" class to it to make it appear circular.
+                {{bio}}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card-panel grey lighten-5 z-depth-1">
-          <div class="row valign-wrapper">
-            <div class="col s3">
-              <img src="/images/monikaProfilePic.jpg" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
-            </div>
-            <div class="col s9">
-                <h6>Monika Kristiansen</h6>
-                <p>
-                    This is a square image. Add the "circle" class to it to make it appear circular.
-                </p>
-            </div>
-          </div>
-        </div>
-      </div>
+        {{/wizards}}
     </div>
   </div>
 

@@ -1,17 +1,18 @@
 package no.brightfield.hptrysil.entity
 
-import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.ManyToOne
 
 @Entity
-class Points (
-        var value: Int,
+class Player(
+        var name: String,
+        var bio: String,
         @ManyToOne var house: House,
-        var reason: String,
-        @ManyToOne var player: Player,
-        var addedAt: LocalDateTime = LocalDateTime.now(),
         @Id @GeneratedValue var id: Long? = null
-)
+) {
+    override fun toString() : String {
+        return name
+    }
+}

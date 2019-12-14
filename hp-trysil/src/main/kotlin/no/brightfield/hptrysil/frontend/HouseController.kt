@@ -2,6 +2,7 @@ package no.brightfield.hptrysil.frontend
 
 import no.brightfield.hptrysil.renderer.renderHouse
 import no.brightfield.hptrysil.repository.HouseRepository
+import no.brightfield.hptrysil.repository.PlayerRepository
 import no.brightfield.hptrysil.repository.PointsRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
 class HouseController (private val houseRepository: HouseRepository,
-                       private val pointsRepository: PointsRepository) {
+                       private val pointsRepository: PointsRepository,
+                       private val playerRepository: PlayerRepository) {
 
     @GetMapping("/house/{name}")
     fun house(@PathVariable name: String, model: Model): String {
@@ -19,10 +21,10 @@ class HouseController (private val houseRepository: HouseRepository,
                 ?: throw IllegalArgumentException("Wrong house name provided")
         val pointList = pointsRepository.findAllByHouseOrderByAddedAtAsc(house)
         val pointsSum = pointList.sumBy { it.value }
-        val renderedHouse = renderHouse(house, pointsSum)
         model["title"] = "Magic in the Woods - " + house.name + " homeroom"
         model["pointList"] = pointList
-        model["house"] = renderedHouse
+        model["house"] = renderHouse(house, pointsSum)
+        model["wizards"] = playerRepository.findAllByHouse(house)
         return "house"
     }
 
