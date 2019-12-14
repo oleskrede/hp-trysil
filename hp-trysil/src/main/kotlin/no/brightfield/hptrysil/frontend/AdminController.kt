@@ -20,6 +20,7 @@ class AdminController (private val houseRepository: HouseRepository,
 
     @GetMapping("/points")
     fun pointsForm(model: Model): String {
+        model["activeAdmin"] = ""
         model["title"] = "Poengregistrering"
         model["houses"] = ALL_HOUSES
         return "admin_points"

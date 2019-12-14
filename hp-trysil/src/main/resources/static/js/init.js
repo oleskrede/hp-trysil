@@ -8,4 +8,14 @@
   $(document).ready(function(){
     $('.slider').slider();
   });
+
+  $(document).ready(function(){
+      $('.collapsible').collapsible();
+  });
+
+
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+
 })(jQuery); // end of jQuery name space

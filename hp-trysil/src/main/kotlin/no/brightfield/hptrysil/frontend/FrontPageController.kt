@@ -1,7 +1,9 @@
 package no.brightfield.hptrysil.frontend
 
 import no.brightfield.hptrysil.entity.House
+import no.brightfield.hptrysil.entity.Event
 import no.brightfield.hptrysil.renderer.RenderedHouse
+import no.brightfield.hptrysil.repository.EventRepository
 import no.brightfield.hptrysil.repository.HouseRepository
 import no.brightfield.hptrysil.repository.PointsRepository
 import org.springframework.stereotype.Controller
@@ -10,12 +12,14 @@ import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class FrontPageController (private val houseRepository: HouseRepository,
+class FrontPageController (private val eventRepository: EventRepository,
+                           private val houseRepository: HouseRepository,
                            private val pointsRepository: PointsRepository) {
 
     @GetMapping("/")
     fun frontpage(model: Model): String {
-        model["title"] = "Harry Potter partay"
+        model["activeHome"] = ""
+        model["title"] = "Harry Potter Partay"
         val houses = houseRepository.findAllByOrderByNameAsc().toList()
         val housePoints = houses
                 .map { Pair(it, pointsRepository.findAllByHouse(it).sumBy { point -> point.value }) }
@@ -25,19 +29,25 @@ class FrontPageController (private val houseRepository: HouseRepository,
 
     @GetMapping("/achievements")
     fun achievements(model: Model): String {
+        model["activeAchievements"] = ""
         model["title"] = "Achievements"
         return "achievements"
     }
 
     @GetMapping("/practicalinfo")
     fun practicalinfo(model: Model): String {
+        model["activePracticalInfo"] = ""
         model["title"] = "Practical Information"
         return "practicalInfo"
     }
 
     @GetMapping("/timetable")
     fun timetable(model: Model): String {
+        model["activeTimetable"] = ""
         model["title"] = "Timetable"
+        val events = eventRepository.findAllByOrderByTimeAsc().toList()
+        model["eventRows"] = events
+
         return "timetable"
     }
 

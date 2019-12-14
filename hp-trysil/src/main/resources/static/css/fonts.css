@@ -3,7 +3,8 @@
     src: url("/fonts/dum1.ttf");
 }
 .dumbledor {
-    font-family: Dumbledor
+    font-family: Dumbledor;
+    font-size: xx-large;
 }
 
 @font-face {

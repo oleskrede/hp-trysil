@@ -4,6 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 
+    <!-- Icon -->
+    <link rel="icon" href="https://odealo.com/uploads/public/Diablo%203/classes/wizard%20icon.png">
+
     <!-- MaterializeCSS -->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -12,8 +15,22 @@
     <!-- Custom css -->
     <link rel="stylesheet" type="text/css" href="/css/fonts.css">
 
+    <script>
+        function mute(){
+          if(background_audio.muted == false){
+            background_audio.muted = true;
+          } else {
+            background_audio.muted = false;
+          }
+        }
+    </script>
 </head>
 <body>
+<audio id="background_audio" autoplay="true" loop="loop">
+    <source src="/audio/themeSong.mp3" >
+    If you are reading this, it is because your browser does not support the audio element.
+</audio>
+
     <nav class="{{#house.name}} {{house.name}}Nav {{/house.name}}{{^house.name}} indigo darken-4 {{/house.name}}" role="navigation">
         <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo"><img height="50" src="/images/harry-potter-logo-transparent-background-10.png"></a>
             <ul class="right hide-on-med-and-down">
@@ -25,12 +42,30 @@
             </ul>
 
             <ul id="nav-mobile" class="sidenav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/timetable">Timetable</a></li>
-                <li><a href="/practicalinfo">Practical Info</a></li>
-                <li><a href="/achievements">Achievements</a></li>
-                <li><a href="/admin/points">Admin</a></li>
+                <li {{#activeHome}}class="active"{{/activeHome}}><a href="/">
+                    <i class="material-icons">home</i>
+                    Home
+                </a></li>
+                <li {{#activeTimetable}}class="active"{{/activeTimetable}}><a href="/timetable">
+                    <i class="material-icons">event</i>
+                    Timetable
+                </a></li>
+                <li {{#activePracticalInfo}}class="active"{{/activePracticalInfo}}><a href="/practicalinfo">
+                    <i class="material-icons">check_box</i>
+                    Practical Info
+                </a></li>
+                <li {{#activeAchievements}}class="active"{{/activeAchievements}}><a href="/achievements">
+                    <i class="material-icons">beenhere</i>
+                    Achievements
+                </a></li>
+                <li {{#activeAdmin}}class="active"{{/activeAdmin}}><a href="/admin/points">
+                    <i class="material-icons">star</i>
+                    Admin
+                </a></li>
             </ul>
+
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a onclick="mute()"><i class="material-icons right">volume_off</i></a>
+
         </div>
     </nav>
