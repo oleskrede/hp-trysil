@@ -19,6 +19,22 @@ main {
 flex: 1 0 auto;
 }
 
+.gryffindorNav {
+background-color: #b71c1c !important;
+}
+
+.hufflepuffNav {
+background-color: #f57f17 !important;
+}
+
+.ravenclawNav {
+background-color: #0D47A1 !important;
+}
+
+.slytherinNav {
+background-color: #1B5E20 !important;
+}
+
 .icon-block {
   padding: 0 15px;
 }

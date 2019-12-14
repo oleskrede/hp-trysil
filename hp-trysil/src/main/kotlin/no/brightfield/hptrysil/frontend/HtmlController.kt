@@ -25,6 +25,12 @@ class HtmlController (private val houseRepository: HouseRepository,
         return "frontpage"
     }
 
+    @GetMapping("/achievements")
+    fun achievements(model: Model): String {
+        model["title"] = "Achievements"
+        return "achievements"
+    }
+
     @GetMapping("/house/{name}")
     fun house(@PathVariable name: String, model: Model): String {
         val house = houseRepository.findByName(name)
@@ -47,6 +53,18 @@ class HtmlController (private val houseRepository: HouseRepository,
         model["title"] = house.name
         model["points"] = points
         return "points"
+    }
+
+    @GetMapping("/practicalinfo")
+    fun practicalinfo(model: Model): String {
+        model["title"] = "Practical Information"
+        return "practicalInfo"
+    }
+
+    @GetMapping("/timetable")
+    fun timetable(model: Model): String {
+        model["title"] = "Timetable"
+        return "timetable"
     }
 
     fun createHouseRows(houses: List<Pair<House, Int>>) : List<HouseRow> {
