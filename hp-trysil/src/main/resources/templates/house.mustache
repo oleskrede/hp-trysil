@@ -4,12 +4,6 @@
       <div class="col s12 center-align">
         <img class="responsive-img" src="/images/icon_{{house.name}}.png">
       </div>
-      <div class="col s12 center-align">
-
-        {{house.points}} points.
-          <a href="/house/{{name}}/points">Se poengoversikt her. </a>
-
-      </div>
     </div>
 
 
@@ -31,9 +25,8 @@
               <table>
               <thead>
                 <tr>
-                    <th>Points awarded</th>
-                    <th>Added at</th>
-                    <th>Reasoning</th>
+                    <th>Points</th>
+                    <th>Reason</th>
                 </tr>
               </thead>
 
@@ -41,7 +34,6 @@
                   {{#pointList}}
                       <tr>
                           <td>{{value}} points</td>
-                          <td>{{addedAt}}</td>
                           <td>{{reason}}</td>
                       </tr>
                   {{/pointList}}
