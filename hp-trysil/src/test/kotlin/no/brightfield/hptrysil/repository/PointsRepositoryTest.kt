@@ -3,6 +3,7 @@ package no.brightfield.hptrysil.repository
 import no.brightfield.hptrysil.util.GRYFFINDOR
 import no.brightfield.hptrysil.util.HUFFELPUFF
 import no.brightfield.hptrysil.entity.House
+import no.brightfield.hptrysil.entity.Player
 import no.brightfield.hptrysil.entity.Points
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -23,10 +24,10 @@ class PointsRepositoryTests @Autowired constructor(
         entityManager.persist(huffelpuff)
         entityManager.flush()
 
-        val p1 = Points(10, gryffindor, "For showing great courage")
-        val p2 = Points(50, gryffindor, "For excellent spellcasting")
-        val p3 = Points(20, huffelpuff, "For showing great sportsmanship in the quidditch final")
-        val p4 = Points(-5, gryffindor, "Late to class")
+        val p1 = Points(10, gryffindor, "For showing great courage", Player("test1", "bio", gryffindor))
+        val p2 = Points(50, gryffindor, "For excellent spellcasting", Player("test2", "bio", gryffindor))
+        val p3 = Points(20, huffelpuff, "For showing great sportsmanship in the quidditch final", Player("test3", "bio", huffelpuff))
+        val p4 = Points(-5, gryffindor, "Late to class", Player("test4", "bio", gryffindor))
         entityManager.persist(p1)
         entityManager.persist(p2)
         entityManager.persist(p3)

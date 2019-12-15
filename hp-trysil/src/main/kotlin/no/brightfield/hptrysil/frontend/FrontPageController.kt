@@ -1,9 +1,7 @@
 package no.brightfield.hptrysil.frontend
 
 import no.brightfield.hptrysil.entity.House
-import no.brightfield.hptrysil.entity.Event
 import no.brightfield.hptrysil.renderer.RenderedHouse
-import no.brightfield.hptrysil.repository.EventRepository
 import no.brightfield.hptrysil.repository.HouseRepository
 import no.brightfield.hptrysil.repository.PointsRepository
 import org.springframework.stereotype.Controller
@@ -12,9 +10,8 @@ import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class FrontPageController (private val eventRepository: EventRepository,
-                           private val houseRepository: HouseRepository,
-                           private val pointsRepository: PointsRepository) {
+class FrontPageController(private val houseRepository: HouseRepository,
+                          private val pointsRepository: PointsRepository) {
 
     @GetMapping("/")
     fun frontpage(model: Model): String {
@@ -39,16 +36,6 @@ class FrontPageController (private val eventRepository: EventRepository,
         model["activePracticalInfo"] = ""
         model["title"] = "Practical Information"
         return "practicalInfo"
-    }
-
-    @GetMapping("/timetable")
-    fun timetable(model: Model): String {
-        model["activeTimetable"] = ""
-        model["title"] = "Timetable"
-        val events = eventRepository.findAllByOrderByTimeAsc().toList()
-        model["eventRows"] = events
-
-        return "timetable"
     }
 
     fun createHouseRows(houses: List<Pair<House, Int>>) : List<HouseRow> {
