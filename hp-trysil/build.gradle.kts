@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	kotlin("plugin.jpa") version "1.2.71"
-	id("org.springframework.boot") version "2.1.7.RELEASE"
-	id("io.spring.dependency-management") version "1.0.7.RELEASE"
-	kotlin("jvm") version "1.2.71"
-	kotlin("plugin.spring") version "1.2.71"
-	kotlin("plugin.allopen") version "1.2.71"
+	kotlin("plugin.jpa") version "1.3.61"
+	id("org.springframework.boot") version "2.2.2.RELEASE"
+	id("io.spring.dependency-management") version "1.0.8.RELEASE"
+	kotlin("jvm") version "1.3.61"
+	kotlin("plugin.spring") version "1.3.61"
+	kotlin("plugin.allopen") version "1.3.61"
 }
 
 group = "no.brightfield"
@@ -25,6 +25,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-mustache")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -38,6 +39,8 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testImplementation("org.springframework.security:spring-security-test")
+
 }
 
 tasks.withType<KotlinCompile> {
